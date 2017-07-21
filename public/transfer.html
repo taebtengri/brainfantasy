@@ -159,7 +159,7 @@ $(document).on('click', 'button.dobavit', function () {
 	
 	var price = Number(player[3].innerText);
 
-	if (pul - price <= 0) {
+	if (pul - price < 0) {
 	alert("Pulunuz çatmır")
 	}
 	else {
