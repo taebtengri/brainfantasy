@@ -1,0 +1,42 @@
+h1 {
+	text-align: center;
+}
+
+.r{
+  background-color: RGBA(0, 0, 0, 0.3);
+  padding: 10px 20px;
+  border-radius: 10px 10px 10px 10px;
+  margin: 5px;
+}
+
+body {
+background-image: url('');
+  background-size:cover;
+  background-repeat:no-repeat;
+  background-color: #1d1f2a;
+  background-attachment: fixed;
+  background-position: center;
+  
+  color: #fff;
+  font-family: 'Oswald', sans-serif;
+  font-size: 20px;
+}
+
+.fifty {
+	margin: 50px;
+}
+
+.plashka {
+	margin-bottom: 20px;
+}
+
+#oyuncular {
+	height: 700px;
+    overflow: scroll;
+}
+
+
+
+/*.table {
+	color: #000;
+}*/

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Brain Ring Fantasy</title>
+		<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"> -->
+	  	<script src="https://code.jquery.com/jquery.js"></script>
+	  	<!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script> -->
+	  	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+		<link rel="stylesheet" href="style.css">
+		<link rel="stylesheet" href="/public/style.css">
+</head>
+<body>
+<div class="container">
+	<div class="row">
+		<div class="col-md-9">
+			<h1 class="fifty">Breyn Rinq Fantasy!</h1>
+			<div class="btn-toolbar plashka" role="toolbar" aria-label="Toolbar with button groups">
+			  
+			    <button type="button" class="btn btn-primary">Ana səhifə</button>
+			    <button type="button" class="btn btn-primary">Komanda opsiyaları</button>
+			    <button type="button" class="btn btn-primary">Transferlər</button>
+			    <button type="button" class="btn btn-primary">Reytinq</button>
+			    <button type="button" class="btn btn-primary">Çıxış</button>
+			  
+			</div>
+		</div>
+		<div class="col-md-2 r plashka">
+			<h3>Salam, <a href="#">username</a>!</h3>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-lg-6 r">
+			<h2>Komandanız:</h2>
+			<div id="komanda">
+				
+				
+			</div>
+		</div>
+		<div class="col-lg-5 r">
+			<h2>Oyunçular:</h2>
+			<div id="oyuncular">
+			<table class="table table-inverse" id="table">
+			<thead>
+	          <tr>
+	                  <th>Oyunçu</th>
+	                  <th>Komanda</th>
+	                  <th>Xallar</th>
+	                  <th>Transfer qiyməti</th>
+	          </tr>
+	          </thead>
+	          <tbody>
+          	  <tr class="results"></tr></tbody>
+             
+              
+            
+          </table>
+				
+			</div>
+		</div>
+	</div>
+	
+</div>
+
+
+
+</body>
+<script type="text/javascript">
+	function populate() {
+	$.get("/players", function(data) {
+        //event.preventDefault();
+        $(".results").html(" ");
+		 console.log(data);
+        for (var i = 0; i < data.length; i++) {
+        var wellSection = $("<tr class='results'>");
+        wellSection.addClass("well");
+        wellSection.attr("id", "character-well-" + i);
+        $("table").append(wellSection);
+
+        $("#character-well-" + i).append("<th>" + data[i].name + "</th>");
+        $("#character-well-" + i).append("<th>" + data[i].team + "</th>");
+        $("#character-well-" + i).append("<th>" + data[i].score + "</th>");
+        $("#character-well-" + i).append("<th>" + data[i].price + "</th></tr>")
+        console.log("xexexexe");
+
+      }
+        
+        });
+        }
+        populate();
+</script>
+</html>
