@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Brain Ring Fantasy</title>
+		<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"> -->
+	  	<script src="https://code.jquery.com/jquery.js"></script>
+	  	<!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script> -->
+	  	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+		<link rel="stylesheet" href="style.css">
+		<link rel="stylesheet" href="/public/style.css">
+
+</head>
+<body>
+<div class="container">
+	<div class="row">
+		<div class="col-md-9">
+			<h1 class="fifty">Breyn Rinq Fantasy!</h1>
+			<h2>Transferlər</h2>
+			
+		</div>
+		<div class="col-md-2">
+			<h3 id="salam">Salam, <a href="#">username</a>!</h3>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-6">
+			<div class="btn-toolbar plashka" role="toolbar" aria-label="Toolbar with button groups">
+			  
+			    <button type="button" class="btn btn-primary" onclick="window.location.href='/'">Ana səhifə
+			    </button>
+			    <button type="button" class="btn btn-primary" onclick="window.location.href='/komanda'">Komanda opsiyaları</button>
+			    <button type="button" class="btn btn-primary" onclick="window.location.href='/transfer'">Transferlər</button>
+			    <button type="button" class="btn btn-primary" onclick="window.location.href='/rating'">Reytinq</button>
+			    <button type="button" class="btn btn-primary" onclick="window.location.href='/signout'">Çıxış</button>
+			  
+			</div>
+		</div>
+		
+	</div>
+	<div class="row">
+		<div class="col-md-12">
+			<h3>Transfer sezonu açıqdır. Bağlanışa <span id="transferTime"></span> qalıb</h3>
+		</div>
+			
+		</div>
+	<div class="row">
+		<div class="col-lg-5 r">
+			<h2>Transfer pulunuz: <span id="pul"></span> </h2><br>
+			<h2>Komandanız:</h2>
+			<div id="komanda">
+			
+				
+				
+			
+			</div>
+			<button class="btn-primary">Qeyd et</button>
+			<button class="btn-danger udalit">Sil</button>	
+
+		</div>
+		<div class="col-lg-6 r">
+			<h2>Oyunçular:</h2>
+			<div id="oyuncular">
+			<table class="table table-inverse" id="table">
+			<thead>
+	          <tr>
+	                  <th>Oyunçu</th>
+	                  <th>Komanda</th>
+	                  <th>Xallar</th>
+	                  <th>Transfer qiyməti</th>
+	          </tr>
+	          </thead>
+	          <tbody>
+          	  <tr class="results"></tr></tbody>
+             
+              
+            
+          </table>
+				
+			</div>
+		</div>
+	</div>
+	
+</div>
+
+
+
+</body>
+<script type="text/javascript">
+	function populate() {
+	$.get("/players", function(data) {
+        //event.preventDefault();
+        $(".results").html(" ");
+		 console.log(data);
+        for (var i = 0; i < data.length; i++) {
+        var wellSection = $("<tr class='results'>");
+        wellSection.addClass("well");
+        wellSection.attr("id", "character-well-" + i);
+        $("table").append(wellSection);
+
+        $("#character-well-" + i).append("<th class='imya'>" + data[i].name + "</th>");
+        $("#character-well-" + i).append("<th>" + data[i].team + "</th>");
+        $("#character-well-" + i).append("<th>" + data[i].score + "</th>");
+        $("#character-well-" + i).append("<th id='cena" + i +"'>" + data[i].price + "</th>")
+        $("#character-well-" + i).append("<th><button type='button' class='btn btn-success dobavit'>+</button></th></tr>")
+
+       
+        console.log("xexexexe");
+
+      }
+        
+        });
+        }
+    populate();
+
+
+
+
+// Set the date we're counting down to
+var countDownDate = new Date("Sep 5, 2017 15:37:25").getTime();
+
+// Update the count down every 1 second
+var x = setInterval(function() {
+
+    // Get todays date and time
+    var now = new Date().getTime();
+    
+    // Find the distance between now an the count down date
+    var distance = countDownDate - now;
+    
+    // Time calculations for days, hours, minutes and seconds
+    var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+    var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+    
+    // Output the result in an element with id="demo"
+    document.getElementById("transferTime").innerHTML = days + "gün " + hours + "saat "
+    + minutes + "dəqiqə " + seconds + "saniyə ";
+    
+    // If the count down is over, write some text 
+    if (distance < 0) {
+        clearInterval(x);
+        document.getElementById("transferTime").innerHTML = "EXPIRED";
+    }
+}, 1000);
+/////////////////////////////////////////////////////////////////////////////////
+
+var counter = 0;
+
+var team = [{},{},{},{},{},{}];
+
+$(document).on('click', 'button.dobavit', function () {
+	if (counter > 5) {
+	alert("Komandanız doludur")
+	}
+	else {
+     var player = $(this).parent().siblings();
+	
+	var price = Number(player[3].innerText);
+
+	if (pul - price <= 0) {
+	alert("Pulunuz çatmır")
+	}
+	else {
+
+	 pul -= price;
+	 $("#pul").text(pul);
+	 team[counter].name = player[0].innerText;
+	 team[counter].team = player[1].innerText;
+	 team[counter].score = player[2].innerText;
+	 team[counter].price = player[3].innerText;
+	 team[counter].id = counter;
+     
+     console.log(player);
+     
+     $("#komanda").append(player[0].innerText + "<br>")
+     $("#komanda").append("Komanda: " + player[1].innerText + "<br>")
+     $("#komanda").append("Xallar: " + player[2].innerText + "<br>")
+     $("#komanda").append("Transfer qiyməti: " + player[3].innerText + "<br><br><br>")
+
+     
+     $(this).prop("disabled", true)
+     counter++
+     console.log(team);
+
+     return false;
+     }
+     }
+
+ });
+
+ $(document).on('click', 'button.udalit', function () {
+ 	$("#komanda").html("");
+ 	$(".dobavit").prop("disabled", false)
+ 	counter = 0;
+ 	pul = 100;
+ 	$("#pul").text(pul);
+
+ })
+
+
+ var pul = 100;
+
+ $("#pul").text(pul);
+
+
+
+
+
+
+
+</script>
+</html>

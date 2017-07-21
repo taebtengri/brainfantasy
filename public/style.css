@@ -9,7 +9,7 @@ h1 {
   margin: 5px;
 }
 
-body {
+body, a {
 background-image: url('');
   background-size:cover;
   background-repeat:no-repeat;
@@ -35,7 +35,9 @@ background-image: url('');
     overflow: scroll;
 }
 
-
+#salam {
+  margin: 20px;
+}
 
 /*.table {
 	color: #000;

@@ -69,3 +69,9 @@ app.get("/players", function(req, res) {
 app.listen(PORT, function() {
   console.log("App listening on PORT " + PORT);
 });
+
+app.get("/transfer", function(req, res) {
+
+  res.sendFile(path.join(__dirname, "/public/transfer.html"));
+
+});
