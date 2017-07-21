@@ -1,0 +1,25 @@
+{
+  "name": "brainfantasy",
+  "version": "1.0.0",
+  "description": "fantasy game",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/taebtengri/brainfantasy.git"
+  },
+  "author": "Shakir Mammadzada",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/taebtengri/brainfantasy/issues"
+  },
+  "dependencies": {
+    "body-parser": "^1.17.1",
+    "express": "^4.15.2",
+    "mysql": "^2.13.0"
+  },
+  "homepage": "https://github.com/taebtengri/brainfantasy#readme"
+}
