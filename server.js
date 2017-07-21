@@ -8,15 +8,15 @@ var mysql = require("mysql");
 
 
 var connection = mysql.createConnection({
-  host: "localhost",
+  host: "a07yd3a6okcidwap.cbetxkdyhwsb.us-east-1.rds.amazonaws.com",
   port: 3306,
 
   // Your username
-  user: "root",
+  user: "txlf37jpmrxdpgpb",
 
   // Your password
-  password: "Qweasdasd86",
-  database: "brain_db"
+  password: "yuars8cd1h39jw0k",
+  database: "cxsl9gryw3jcio1f"
 });
 
 connection.connect(function(err) {
