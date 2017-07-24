@@ -75,3 +75,9 @@ app.get("/transfer", function(req, res) {
   res.sendFile(path.join(__dirname, "/public/transfer.html"));
 
 });
+
+app.get("/login", function(req, res) {
+
+  res.sendFile(path.join(__dirname, "/public/login.html"));
+
+});
