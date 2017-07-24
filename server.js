@@ -171,3 +171,29 @@ setTimeout(function() {
 
 
 });
+
+app.get("/rating", function(req, res) {
+
+  res.sendFile(path.join(__dirname, "/public/reytinq.html"));
+
+});
+
+var users = {
+list: []
+}
+
+app.get("/rate", function(req, res) {
+  connection.query("SELECT * FROM users", function(err, res) {
+    console.log(res)
+    users.list = [];
+  for (i=0; i < res.length; i++) {
+    var us = {
+      name : res[i].name,
+      score :res[i].score
+    }
+    users.list.push(us);
+  }
+
+});
+   return res.json(users)
+})
