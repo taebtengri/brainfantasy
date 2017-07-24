@@ -48,13 +48,13 @@
 			<h2>Transfer pulunuz: <span id="pul"></span> </h2><br>
 			<h2>Komandanız:</h2>
 			<div id="koman">
-			<div class="komanda">
+			<!-- <div class="komanda">
 
 			
 				
 				
 			
-			</div>
+			</div> -->
 			</div>
 			<button class="btn-primary qeyd">Qeyd et</button>
 			<button class="btn-danger udalit">Sil</button>	
@@ -105,7 +105,7 @@
         $("#c" + i).append("<th>" + data[i].score + "</th>");
         $("#c" + i).append("<th id='cena" + i +"'>" + data[i].price + "</th>")
         $("#c" + i).append("<th><button type='button' class='btn btn-success dobavit' id='"+i+"'>+</button></th></tr>");
-        setTimeout(saved, 1000);
+        
 
 
       
@@ -116,21 +116,26 @@
         console.log("xexexexe");
 
       }
+      setTimeout(saved, 1000);
 	}
 
 	function saved(){
 	  $.ajax({
 	  url: "/saved",
-	  type: 'GET'}).done(function(x) {
-	  setTimeout(saved1(x), 2000);
+	  type: 'GET'}).done(function(data) {
+	  setTimeout(saved1(data), 2000);
 		});
 	};
 
 	function saved1(x){
 	for (i=0; i<6; i++) {
 		$("#" + x.team[i]).trigger("click");
+		console.log(i)
 		};
+
 		$("#i" + x.team[6]).children(".kapitan").trigger("click");
+		console.log("k")
+
 	};
 
 	function populate() {
@@ -290,6 +295,7 @@ $(document).on('click', 'button.dobavit', function () {
  		return;
  	}
  	else {
+ 	teamsend = [];
  	var k = $("#koman").children();
  	var kkk;
  	console.log(k);
@@ -314,7 +320,7 @@ $(document).on('click', 'button.dobavit', function () {
  		teamsend.push(kk);
  	}
  	teamsend.push(kkk);
- 	console.log(team);
+ 	console.log(teamsend);
  	var parameters = {
  		team: teamsend
  	}

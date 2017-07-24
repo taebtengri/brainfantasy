@@ -162,11 +162,10 @@ app.get("/saved", function(req, res) {
   team.team.push(res[0].team6);
   team.team.push(res[0].captain);
   
-
 });
 
 setTimeout(function() {
-  console.log(team);
+  console.log(team.team);
     return res.json(team);
 }, 1000);
 
