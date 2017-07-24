@@ -48,11 +48,14 @@
 		<div class="col-lg-5 r">
 			<h2>Transfer pulunuz: <span id="pul"></span> </h2><br>
 			<h2>Komandanız:</h2>
-			<div id="komanda">
+			<div id="koman">
+			<div class="komanda">
+
 			
 				
 				
 			
+			</div>
 			</div>
 			<button class="btn-primary">Qeyd et</button>
 			<button class="btn-danger udalit">Sil</button>	
@@ -68,6 +71,7 @@
 	                  <th>Komanda</th>
 	                  <th>Xallar</th>
 	                  <th>Transfer qiyməti</th>
+	                  <th<>/th>
 	          </tr>
 	          </thead>
 	          <tbody>
@@ -102,7 +106,7 @@
         $("#character-well-" + i).append("<th>" + data[i].team + "</th>");
         $("#character-well-" + i).append("<th>" + data[i].score + "</th>");
         $("#character-well-" + i).append("<th id='cena" + i +"'>" + data[i].price + "</th>")
-        $("#character-well-" + i).append("<th><button type='button' class='btn btn-success dobavit'>+</button></th></tr>")
+        $("#character-well-" + i).append("<th><button type='button' class='btn btn-success dobavit' id='"+i+"'>+</button></th></tr>")
 
        
         console.log("xexexexe");
@@ -147,15 +151,19 @@ var x = setInterval(function() {
 /////////////////////////////////////////////////////////////////////////////////
 
 var counter = 0;
+var scounter = 0;
 
 var team = [{},{},{},{},{},{}];
+var steam = [];
 
 $(document).on('click', 'button.dobavit', function () {
+	var svyaz = $(this).attr('id');
 	if (counter > 5) {
 	alert("Komandanız doludur")
 	}
 	else {
-     var player = $(this).parent().siblings();
+    var player = $(this).parent().siblings();
+    steam.push(player);
 	
 	var price = Number(player[3].innerText);
 
@@ -163,6 +171,7 @@ $(document).on('click', 'button.dobavit', function () {
 	alert("Pulunuz çatmır")
 	}
 	else {
+
 
 	 pul -= price;
 	 $("#pul").text(pul);
@@ -173,15 +182,22 @@ $(document).on('click', 'button.dobavit', function () {
 	 team[counter].id = counter;
      
      console.log(player);
-     
-     $("#komanda").append(player[0].innerText + "<br>")
-     $("#komanda").append("Komanda: " + player[1].innerText + "<br>")
-     $("#komanda").append("Xallar: " + player[2].innerText + "<br>")
-     $("#komanda").append("Transfer qiyməti: " + player[3].innerText + "<br><br><br>")
+	var divKomanda = $("<div class='komanda'>");
+        divKomanda.attr("id", "igrok" + scounter);
+        $("#koman").append(divKomanda);
+
+
+     $("#igrok" + scounter).append("<div id='igrok" + scounter + "'></div>")
+     $("#igrok" + scounter).append(player[0].innerText + "<br>")
+     $("#igrok" + scounter).append("Komanda: " + player[1].innerText + "<br>")
+     $("#igrok" + scounter).append("Xallar: " + player[2].innerText + "<br>")
+     $("#igrok" + scounter).append("Transfer qiyməti: <span class='cena'>" + player[3].innerText + "</span><br>")
+     $("#igrok" + scounter).append("<button type='button' class='btn btn-danger sil "+ svyaz +"'>-</button><br><br><br>")
 
      
      $(this).prop("disabled", true)
      counter++
+     scounter++
      console.log(team);
 
      return false;
@@ -190,8 +206,21 @@ $(document).on('click', 'button.dobavit', function () {
 
  });
 
- $(document).on('click', 'button.udalit', function () {
- 	$("#komanda").html("");
+ $(document).on('click', 'button.sil', function () {
+ 	$(this).removeClass( "btn btn-danger sil" );
+ 	var obrsvyaz = $(this).attr('class');
+ 	$("#"+obrsvyaz).prop("disabled", false);
+ 	counter--;
+ 	var cena = 	$(this).siblings(".cena");
+ 	console.log(cena);
+ 	var cena1 = Number(cena[0].innerText);
+ 	pul += cena1;
+ 	$("#pul").text(pul);
+ 	$(this).parent().html("");
+
+ })
+  $(document).on('click', 'button.udalit', function () {
+ 	$("#koman").html("");
  	$(".dobavit").prop("disabled", false)
  	counter = 0;
  	pul = 100;
