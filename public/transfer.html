@@ -152,6 +152,7 @@ var x = setInterval(function() {
 
 var counter = 0;
 var scounter = 0;
+var kcounter = 0;
 
 var team = [{},{},{},{},{},{}];
 var steam = [];
@@ -192,13 +193,20 @@ $(document).on('click', 'button.dobavit', function () {
      $("#igrok" + scounter).append("Komanda: " + player[1].innerText + "<br>")
      $("#igrok" + scounter).append("Xallar: " + player[2].innerText + "<br>")
      $("#igrok" + scounter).append("Transfer qiyməti: <span class='cena'>" + player[3].innerText + "</span><br>")
-     $("#igrok" + scounter).append("<button type='button' class='btn btn-danger sil "+ svyaz +"'>-</button><br><br><br>")
+	 $("#igrok" + scounter).append("<button type='button' class='btn btn-primary kapitan "+ svyaz +"'>Kapitan olsun</button><br>")
+     $("#igrok" + scounter).append("<button type='button' class='btn btn-danger sil "+ svyaz +"'>-</button><br><br>")
 
      
      $(this).prop("disabled", true)
+     $(this).parent().siblings().css({"color": "red"});
      counter++
      scounter++
      console.log(team);
+
+     if (kcounter !== 0) {
+     $(".kapitan").prop("disabled", true);
+     $(".kapitan").hide();
+     }
 
      return false;
      }
@@ -210,13 +218,19 @@ $(document).on('click', 'button.dobavit', function () {
  	$(this).removeClass( "btn btn-danger sil" );
  	var obrsvyaz = $(this).attr('class');
  	$("#"+obrsvyaz).prop("disabled", false);
+ 	$("#"+obrsvyaz).parent().siblings().css({"color": "white"});
  	counter--;
  	var cena = 	$(this).siblings(".cena");
  	console.log(cena);
  	var cena1 = Number(cena[0].innerText);
  	pul += cena1;
  	$("#pul").text(pul);
- 	$(this).parent().html("");
+ 	if($(this).parent().attr('id') == 'kap') {
+ 		$(".kapitan").prop("disabled", false);
+ 		kcounter = 0;
+ 		$(".kapitan").show();
+ 	}
+ 	$(this).parent().remove();
 
  })
   $(document).on('click', 'button.udalit', function () {
@@ -225,7 +239,18 @@ $(document).on('click', 'button.dobavit', function () {
  	counter = 0;
  	pul = 100;
  	$("#pul").text(pul);
+ 	$(".dobavit").parent().siblings().css({"color": "white"});
+ 	kcounter = 0;
 
+ })
+
+ $(document).on('click', 'button.kapitan', function () {
+ 	kcounter++;
+	$(".kapitan").prop("disabled", true);
+	$(".kapitan").hide();
+	$(this).parent().css({"color": "blue"});
+	$(this).parent().attr("id", "kap");
+	
  })
 
 

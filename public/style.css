@@ -10,7 +10,7 @@ h1 {
 }
 
 body, a {
-background-image: url('');
+background-image: url('br.png');
   background-size:cover;
   background-repeat:no-repeat;
   background-color: #1d1f2a;
@@ -20,6 +20,13 @@ background-image: url('');
   color: #fff;
   font-family: 'Oswald', sans-serif;
   font-size: 20px;
+  background:
+radial-gradient(black 15%, transparent 16%) 0 0,
+radial-gradient(black 15%, transparent 16%) 8px 8px,
+radial-gradient(rgba(255,255,255,.1) 15%, transparent 20%) 0 1px,
+radial-gradient(rgba(255,255,255,.1) 15%, transparent 20%) 8px 9px;
+background-color:#282828;
+background-size:16px 16px;
 }
 
 .fifty {
