@@ -52,18 +52,32 @@ app.get("/", function(req, res) {
 
 app.get("/players", function(req, res) {
 
-  connection.query("SELECT * FROM players", {
-}, function(err, res) {
-  players = [];
+getPlayers(procRes);
+setTimeout(function() {
+    return res.json(players);
+}, 500);
+
+
+});
+
+function procRes(err, res) {
+    players = [];
 
   for (var i = 0; i < res.length; i++) {
     players.push(res[i]);
    }
+}
+
+function getPlayers(callback) {
+  connection.query("SELECT * FROM players", {
+}, function(err, res) {
+
+  callback(err, res);
 
 });
-  return res.json(players);
 
-});
+  
+}
 
 app.listen(PORT, function() {
   console.log("App listening on PORT " + PORT);
@@ -147,8 +161,14 @@ app.get("/saved", function(req, res) {
   team.team.push(res[0].team5);
   team.team.push(res[0].team6);
   team.team.push(res[0].captain);
+  
 
 });
-  return res.json(team);
+
+setTimeout(function() {
+  console.log(team);
+    return res.json(team);
+}, 1000);
+
 
 });

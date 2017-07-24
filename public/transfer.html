@@ -91,27 +91,8 @@
 </body>
 <script type="text/javascript">
 
-	/*function saved(){
-	  $.ajax({
-	  url: "/saved",
-	  type: 'GET'}).done(function(x) {
-	  setTimeout(saved1(x), 2000);
-		});
-	};
-
-	function saved1(x){
-	for (i=0; i<6; i++) {
-		$("#" + x.team[i]).trigger("click");
-		};
-		$("#i" + x.team[6]).children(".kapitan").trigger("click");
-	};*/
-
-	function populate() {
-	$.ajax({
-	url:"/players",
-	type: 'GET',}).done(function(data) {
-        //event.preventDefault();
-        $(".results").html(" ");
+	function handledata(data) {
+	 $(".results").html(" ");
 		 console.log(data);
         for (var i = 0; i < data.length; i++) {
         var wellSection = $("<tr class='results'>");
@@ -124,7 +105,7 @@
         $("#c" + i).append("<th>" + data[i].score + "</th>");
         $("#c" + i).append("<th id='cena" + i +"'>" + data[i].price + "</th>")
         $("#c" + i).append("<th><button type='button' class='btn btn-success dobavit' id='"+i+"'>+</button></th></tr>");
-        //setTimeout(saved, 2000);
+        setTimeout(saved, 1000);
 
 
       
@@ -135,10 +116,29 @@
         console.log("xexexexe");
 
       }
-        
-        })
-        
-        }
+	}
+
+	function saved(){
+	  $.ajax({
+	  url: "/saved",
+	  type: 'GET'}).done(function(x) {
+	  setTimeout(saved1(x), 2000);
+		});
+	};
+
+	function saved1(x){
+	for (i=0; i<6; i++) {
+		$("#" + x.team[i]).trigger("click");
+		};
+		$("#i" + x.team[6]).children(".kapitan").trigger("click");
+	};
+
+	function populate() {
+	$.ajax({
+	url:"/players",
+	type: 'GET'}).done(handledata)
+        //event.preventDefault();
+    }
     populate();
     // Set the date we're counting down to
 var countDownDate = new Date("Sep 5, 2017 15:37:25").getTime();
