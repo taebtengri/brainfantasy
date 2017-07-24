@@ -91,21 +91,25 @@
 </body>
 <script type="text/javascript">
 
-	function saved(){
-	  $.get("/saved", function(data) {
-	  setTimeout(saved1(data), 2000);
+	/*function saved(){
+	  $.ajax({
+	  url: "/saved",
+	  type: 'GET'}).done(function(x) {
+	  setTimeout(saved1(x), 2000);
 		});
 	};
 
-	function saved1(data){
+	function saved1(x){
 	for (i=0; i<6; i++) {
-		$("#" + data.team[i]).trigger("click");
+		$("#" + x.team[i]).trigger("click");
 		};
-		$("#i" + data.team[6]).children(".kapitan").trigger("click");
-	};
+		$("#i" + x.team[6]).children(".kapitan").trigger("click");
+	};*/
 
 	function populate() {
-	$.get("/players", function(data) {
+	$.ajax({
+	url:"/players",
+	type: 'GET',}).done(function(data) {
         //event.preventDefault();
         $(".results").html(" ");
 		 console.log(data);
@@ -120,7 +124,7 @@
         $("#c" + i).append("<th>" + data[i].score + "</th>");
         $("#c" + i).append("<th id='cena" + i +"'>" + data[i].price + "</th>")
         $("#c" + i).append("<th><button type='button' class='btn btn-success dobavit' id='"+i+"'>+</button></th></tr>");
-        setTimeout(saved, 2000);
+        //setTimeout(saved, 2000);
 
 
       
@@ -132,15 +136,11 @@
 
       }
         
-        });
+        })
+        
         }
     populate();
-
-
-
-
-
-// Set the date we're counting down to
+    // Set the date we're counting down to
 var countDownDate = new Date("Sep 5, 2017 15:37:25").getTime();
 
 // Update the count down every 1 second
@@ -169,6 +169,13 @@ var x = setInterval(function() {
     }
 }, 1000);
 /////////////////////////////////////////////////////////////////////////////////
+
+
+
+
+
+
+
 
 var counter = 0;
 var scounter = 0;
@@ -275,6 +282,8 @@ $(document).on('click', 'button.dobavit', function () {
 
  $("#pul").text(pul);
 
+ var teamsend = [];
+
  $(".qeyd").click(function(){
  	if (counter < 5 || kcounter == 0) {
  		alert("Komandanız tənzimlənməyib! Komandada 6 nəfər olmalıdır və bir nəfər mütləq kapitan olmalıdır.");
@@ -302,12 +311,12 @@ $(document).on('click', 'button.dobavit', function () {
 
  		}
  		
- 		team.push(kk);
+ 		teamsend.push(kk);
  	}
- 	team.push(kkk);
+ 	teamsend.push(kkk);
  	console.log(team);
  	var parameters = {
- 		team: team
+ 		team: teamsend
  	}
  	   $.post("/save", parameters)
       	.fail(function() {
