@@ -93,11 +93,11 @@
 
 	function saved(){
 	  $.get("/saved", function(data) {
-	  setTimeout(saved1, 2000);
+	  setTimeout(saved1(data), 2000);
 		});
 	};
 
-	function saved1(){
+	function saved1(data){
 	for (i=0; i<6; i++) {
 		$("#" + data.team[i]).trigger("click");
 		};
