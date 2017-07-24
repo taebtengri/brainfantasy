@@ -195,5 +195,7 @@ app.get("/rate", function(req, res) {
   }
 
 });
-   return res.json(users)
+   setTimeout(function() {
+    return res.json(users);
+}, 500);
 })
