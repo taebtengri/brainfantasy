@@ -59,7 +59,6 @@ app.get("/players", function(req, res) {
   for (var i = 0; i < res.length; i++) {
     players.push(res[i]);
    }
-    console.log(players);
 
 });
   return res.json(players);
@@ -79,5 +78,77 @@ app.get("/transfer", function(req, res) {
 app.get("/login", function(req, res) {
 
   res.sendFile(path.join(__dirname, "/public/login.html"));
+
+});
+
+app.post("/save", function(req, res) {
+
+  var parameters = req.body;
+  var team = parameters.team;
+
+  connection.query("UPDATE users SET ? WHERE name = 'admin'", {
+      team1: team[0]
+  }, function(err, res) {
+  console.log("UPDATEed")
+});
+
+  connection.query("UPDATE users SET ? WHERE name = 'admin'", {
+      team2: team[1]
+  }, function(err, res) {
+  console.log("UPDATEed")
+});
+
+  connection.query("UPDATE users SET ? WHERE name = 'admin'", {
+      team3: team[2]
+  }, function(err, res) {
+  console.log("UPDATEed")
+});
+
+  connection.query("UPDATE users SET ? WHERE name = 'admin'", {
+      team4: team[3]
+  }, function(err, res) {
+  console.log("UPDATEed")
+});
+
+  connection.query("UPDATE users SET ? WHERE name = 'admin'", {
+      team5: team[4]
+  }, function(err, res) {
+  console.log("UPDATEed")
+});
+
+  connection.query("UPDATE users SET ? WHERE name = 'admin'", {
+      team6: team[5]
+  }, function(err, res) {
+  console.log("UPDATEed")
+});
+
+  connection.query("UPDATE users SET ? WHERE name = 'admin'", {
+      captain: team[6]
+  }, function(err, res) {
+  console.log("UPDATEed!")
+});
+
+
+  return res.json(parameters);
+
+});
+var team = {
+  team:[]
+};
+app.get("/saved", function(req, res) {
+
+  connection.query("SELECT * FROM users WHERE name='admin'", {
+}, function(err, res) {
+  team.team = [];
+  team.team.push(res[0].team1);
+  team.team.push(res[0].team2);
+  team.team.push(res[0].team3);
+  team.team.push(res[0].team4);
+  team.team.push(res[0].team5);
+  team.team.push(res[0].team6);
+  team.team.push(res[0].captain);
+
+});
+  return res.json(team);
 
 });

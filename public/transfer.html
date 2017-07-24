@@ -56,7 +56,7 @@
 			
 			</div>
 			</div>
-			<button class="btn-primary">Qeyd et</button>
+			<button class="btn-primary qeyd">Qeyd et</button>
 			<button class="btn-danger udalit">Sil</button>	
 
 		</div>
@@ -90,6 +90,27 @@
 
 </body>
 <script type="text/javascript">
+
+	function saved(){
+	  $.get("/saved", function(data) {
+		for (i=0; i<6; i++) {
+		$("#" + data.team[i]).trigger("click");
+		};
+		$("#i" + data.team[6]).children(".kapitan").trigger("click");
+		
+
+		});
+	}
+
+	
+
+
+
+
+
+
+
+
 	function populate() {
 	$.get("/players", function(data) {
         //event.preventDefault();
@@ -98,14 +119,19 @@
         for (var i = 0; i < data.length; i++) {
         var wellSection = $("<tr class='results'>");
         wellSection.addClass("well");
-        wellSection.attr("id", "character-well-" + i);
+        wellSection.attr("id", "c" + i);
         $("table").append(wellSection);
 
-        $("#character-well-" + i).append("<th class='imya'>" + data[i].name + "</th>");
-        $("#character-well-" + i).append("<th>" + data[i].team + "</th>");
-        $("#character-well-" + i).append("<th>" + data[i].score + "</th>");
-        $("#character-well-" + i).append("<th id='cena" + i +"'>" + data[i].price + "</th>")
-        $("#character-well-" + i).append("<th><button type='button' class='btn btn-success dobavit' id='"+i+"'>+</button></th></tr>")
+        $("#c" + i).append("<th class='imya'>" + data[i].name + "</th>");
+        $("#c" + i).append("<th>" + data[i].team + "</th>");
+        $("#c" + i).append("<th>" + data[i].score + "</th>");
+        $("#c" + i).append("<th id='cena" + i +"'>" + data[i].price + "</th>")
+        $("#c" + i).append("<th><button type='button' class='btn btn-success dobavit' id='"+i+"'>+</button></th></tr>");
+        setTimeout(saved, 2000);
+
+      
+	
+
 
        
         console.log("xexexexe");
@@ -115,6 +141,7 @@
         });
         }
     populate();
+
 
 
 
@@ -153,7 +180,7 @@ var counter = 0;
 var scounter = 0;
 var kcounter = 0;
 
-var team = [{},{},{},{},{},{}];
+var team = [];
 var steam = [];
 
 $(document).on('click', 'button.dobavit', function () {
@@ -175,25 +202,20 @@ $(document).on('click', 'button.dobavit', function () {
 
 	 pul -= price;
 	 $("#pul").text(pul);
-	 team[counter].name = player[0].innerText;
-	 team[counter].team = player[1].innerText;
-	 team[counter].score = player[2].innerText;
-	 team[counter].price = player[3].innerText;
-	 team[counter].id = counter;
      
      console.log(player);
 	var divKomanda = $("<div class='komanda'>");
-        divKomanda.attr("id", "igrok" + scounter);
+        divKomanda.attr("id", "i" + svyaz);
         $("#koman").append(divKomanda);
 
 
-     $("#igrok" + scounter).append("<div id='igrok" + scounter + "'></div>")
-     $("#igrok" + scounter).append(player[0].innerText + "<br>")
-     $("#igrok" + scounter).append("Komanda: " + player[1].innerText + "<br>")
-     $("#igrok" + scounter).append("Xallar: " + player[2].innerText + "<br>")
-     $("#igrok" + scounter).append("Transfer qiyməti: <span class='cena'>" + player[3].innerText + "</span><br>")
-	 $("#igrok" + scounter).append("<button type='button' class='btn btn-primary kapitan "+ svyaz +"'>Kapitan olsun</button><br>")
-     $("#igrok" + scounter).append("<button type='button' class='btn btn-danger sil "+ svyaz +"'>-</button><br><br>")
+     $("#i" + svyaz).append("<div id='igrok" + scounter + "'></div>")
+     $("#i" + svyaz).append(player[0].innerText + "<br>")
+     $("#i" + svyaz).append("Komanda: " + player[1].innerText + "<br>")
+     $("#i" + svyaz).append("Xallar: " + player[2].innerText + "<br>")
+     $("#i" + svyaz).append("Transfer qiyməti: <span class='cena'>" + player[3].innerText + "</span><br>")
+	 $("#i" + svyaz).append("<button type='button' class='btn btn-primary kapitan "+ svyaz +"'>Kapitan olsun</button><br>")
+     $("#i" + svyaz).append("<button type='button' class='btn btn-danger sil "+ svyaz +"'>-</button><br><br>")
 
      
      $(this).prop("disabled", true)
@@ -224,7 +246,7 @@ $(document).on('click', 'button.dobavit', function () {
  	var cena1 = Number(cena[0].innerText);
  	pul += cena1;
  	$("#pul").text(pul);
- 	if($(this).parent().attr('id') == 'kap') {
+ 	if($(this).parent().attr('id').indexOf("k") !== -1) {
  		$(".kapitan").prop("disabled", false);
  		kcounter = 0;
  		$(".kapitan").show();
@@ -248,7 +270,9 @@ $(document).on('click', 'button.dobavit', function () {
 	$(".kapitan").prop("disabled", true);
 	$(".kapitan").hide();
 	$(this).parent().css({"color": "blue"});
-	$(this).parent().attr("id", "kap");
+	var kep = $(this).parent().attr('id');
+	kep = "k" + kep
+	$(this).parent().attr("id", kep);
 	
  })
 
@@ -256,6 +280,52 @@ $(document).on('click', 'button.dobavit', function () {
  var pul = 100;
 
  $("#pul").text(pul);
+
+ $(".qeyd").click(function(){
+ 	if (counter < 5 || kcounter == 0) {
+ 		alert("Komandanız tənzimlənməyib! Komandada 6 nəfər olmalıdır və bir nəfər mütləq kapitan olmalıdır.");
+ 		return;
+ 	}
+ 	else {
+ 	var k = $("#koman").children();
+ 	var kkk;
+ 	console.log(k);
+ 	for (i=0; i<6; i++) {
+ 		var kk = k[i].id;
+ 		if (kk[0] == "k") {
+
+ 		
+ 		kk = kk.slice(2);
+ 		kk = Number(kk);
+		kkk = kk
+
+ 		}
+
+ 		else {
+
+ 		kk = kk.slice(1);
+ 		kk = Number(kk);
+
+ 		}
+ 		
+ 		team.push(kk);
+ 	}
+ 	team.push(kkk);
+ 	console.log(team);
+ 	var parameters = {
+ 		team: team
+ 	}
+ 	   $.post("/save", parameters)
+      	.fail(function() {
+    		alert( "error" );
+  		})
+        .done(function(data) {
+			console.log(data);
+        });
+
+ 	}
+
+ })
 
 
 
