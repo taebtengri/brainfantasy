@@ -93,23 +93,16 @@
 
 	function saved(){
 	  $.get("/saved", function(data) {
-		for (i=0; i<6; i++) {
+	  setTimeout(saved1, 2000);
+		});
+	};
+
+	function saved1(){
+	for (i=0; i<6; i++) {
 		$("#" + data.team[i]).trigger("click");
 		};
 		$("#i" + data.team[6]).children(".kapitan").trigger("click");
-		
-
-		});
-	}
-
-	
-
-
-
-
-
-
-
+	};
 
 	function populate() {
 	$.get("/players", function(data) {
@@ -127,8 +120,8 @@
         $("#c" + i).append("<th>" + data[i].score + "</th>");
         $("#c" + i).append("<th id='cena" + i +"'>" + data[i].price + "</th>")
         $("#c" + i).append("<th><button type='button' class='btn btn-success dobavit' id='"+i+"'>+</button></th></tr>");
-        setTimeout(saved, 4000);
-        
+        setTimeout(saved, 2000);
+
 
       
 	
