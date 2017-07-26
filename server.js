@@ -199,3 +199,9 @@ app.get("/rate", function(req, res) {
     return res.json(users);
 }, 500);
 })
+
+app.get("/signout", function(req, res) {
+
+  res.sendFile(path.join(__dirname, "/public/index.html"));
+
+});
