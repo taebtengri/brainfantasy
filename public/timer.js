@@ -1,5 +1,5 @@
 // Set the date we're counting down to
-var countDownDate = new Date("Sep 5, 2017 15:37:25").getTime();
+var countDownDate = new Date("Sep 10, 2017 15:37:25").getTime();
 
 // Update the count down every 1 second
 var x = setInterval(function() {
@@ -17,13 +17,13 @@ var x = setInterval(function() {
     var seconds = Math.floor((distance % (1000 * 60)) / 1000);
     
     // Output the result in an element with id="demo"
-    document.getElementById("transferTime").innerHTML = days + "gün " + hours + "saat "
-    + minutes + "dəq " + seconds + "san ";
+    document.getElementById("transferTime").innerHTML = days + "дней " + hours + "часов "
+    + minutes + "минут " + seconds + "секунд ";
     
     // If the count down is over, write some text 
     if (distance < 0) {
         clearInterval(x);
-        document.getElementById("transferTime").innerHTML = "EXPIRED";
+        document.getElementById("transferTime").innerHTML = "Время окончено";
     }
 }, 1000);
 

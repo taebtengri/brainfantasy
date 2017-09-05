@@ -69,7 +69,7 @@ function procRes(err, res) {
 }
 
 function getPlayers(callback) {
-  connection.query("SELECT * FROM players", {
+  connection.query("SELECT * FROM stories", {
 }, function(err, res) {
 
   callback(err, res);
