@@ -29,7 +29,7 @@ body {
   background-repeat:no-repeat;
   background-color: #1d1f2a;
   background-attachment: fixed;
-  background-position: center;
+  /*background-position: center;*/
   
   color: #fff;
   font-family: 'Oswald', sans-serif;
