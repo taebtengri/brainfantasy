@@ -66,6 +66,7 @@
 	<div class="row">
 		<div class="col-md-12">
 			<h3>До конца периода оценивания осталось <span id="transferTime"></span></h3>
+			<h4>Отсортируйте рассказы, перетаскивая их в списке и закрепляя их.<br> Когда все рассказы будут закреплены, нажмите кнопку "отправить".</h4>
 		</div>
 			
 		</div>
@@ -87,7 +88,7 @@
 			<button class="btn-danger udalit">Очистить</button>	
 
 		</div>-->
-		<div class="col-lg-11 r">
+		<div class="col-lg-10 r">
 			<h2>Рассказы:</h2>
 			<div id="oyuncular">
 			<table class="table table-inverse" id="table">
@@ -105,6 +106,8 @@
               
             
           </table>
+          <button class="btn-primary qeyd">Отправить</button>
+		  <button class="btn-danger udalit">Очистить</button>	
 				
 			</div>
 		</div>
@@ -116,10 +119,11 @@
 
 </body>
 <script type="text/javascript">
-
+var counter = 0;
 	function handledata(data) {
 	 $(".results").html(" ");
 		 console.log(data);
+		 counter = 0;
         for (var i = 0; i < data.length; i++) {
         var wellSection = $("<tr class='results well'>");
         //wellSection.addClass("well");
@@ -129,6 +133,7 @@
 
         $("#c" + i).append("<th class='imya'>" + data[i].id + "</th>");
         $("#c" + i).append("<th>" + data[i].name + "</th>");
+        $("#c" + i).append("<th><textarea rows='2' cols='20' id='comment' enabled></textarea></th>");
         $("#c" + i).append("<th><button type='button' class='btn btn-success dobavit' id='"+i+"'>Закрепить</button></th></tr>");
         
 
@@ -137,7 +142,7 @@
 	
 
 
-       
+       	counter++;
         console.log("xexexexe");
 
       }
@@ -187,72 +192,59 @@ var x = setInterval(function() {
 }, 1000);
 /////////////////////////////////////////////////////////////////////////////////
 
-
-
-
-
-
-
-
-var counter = 1;
-var scounter = 0;
-var kcounter = 0;
-
 var team = [];
 var steam = [];
-
+var scounter = 0;
 $(document).on('click', 'button.dobavit', function () {
-	var svyaz = $(this).attr('id');
-
-    var player = $(this).parent().siblings();
-    steam.push(player);
-     
-     console.log(player);
-	var divKomanda = $("<div class='komanda'>");
-        divKomanda.attr("id", "i" + svyaz);
-        $("#koman").append(divKomanda);
-
-
-     $("#i" + svyaz).append("<div id='igrok" + scounter + "'></div>")
-     $("#i" + svyaz).append("Место: " + counter + "<br>")
-     $("#i" + svyaz).append("Название: " + player[1].innerText + "<br>")
-     $("#i" + svyaz).append("<button type='button' class='btn btn-danger sil "+ svyaz +"'>-</button><br><br>")
-
-     
-     //$(this).prop("disabled", true)
+	 if ($(this).html() == "Закрепить") {
+     $(this).html("Открепить")
      $(this).addClass("btn-danger");
      $(this).parent().siblings().css({"color": "red"});
      $(this).parent().parent().addClass("disabled");
-     counter++
      scounter++
      console.log(team);
+ }
+ else {
+ 	 $(this).html("Закрепить")
+     $(this).removeClass("btn-danger");
+     $(this).parent().siblings().css({"color": "white"});
+     $(this).parent().parent().removeClass("disabled");
+     scounter--
+     console.log(team);
+ 	
+ }
 
-     return false;
-     
-     
+     return false;   
 
  });
 
- $(document).on('click', 'button.sil', function () {
- 	$(this).removeClass( "btn btn-danger sil" );
- 	var obrsvyaz = $(this).attr('class');
- 	$("#"+obrsvyaz).prop("disabled", false);
- 	$("#"+obrsvyaz).parent().siblings().css({"color": "white"});
- 	//counter--;
- 	var cena = 	$(this).siblings(".cena");
- 	$(this).parent().remove();
 
- })
-  $(document).on('click', 'button.udalit', function () {
- 	$("#koman").html("");
- 	$(".dobavit").prop("disabled", false)
- 	counter = 1;
- 	pul = 100;
- 	$("#pul").text(pul);
- 	$(".dobavit").parent().siblings().css({"color": "white"});
- 	kcounter = 0;
+  $(document).on('click', 'button.qeyd', function () {
+  	if (scounter < counter) {
+  		alert("Не все рассказы закреплены!");
+  	}
+  	else if (scounter == counter) {
+  		alert("Рассказы отсортированы");
+  	}
+  	else {
+  		alert("ERROR")
+  	}
 
- })
+
+ });
+
+$(document).on('click', 'button.udalit', function () {
+  	$(".dobavit").html("Закрепить").removeClass("btn-danger").parent().siblings().css({"color": "white"});
+  	$(".dobavit").parent().parent().removeClass("disabled");
+  	scounter = 0;
+
+
+
+
+
+ });
+
+
 
 
  var teamsend = [];
