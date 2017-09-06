@@ -25,7 +25,7 @@
     	connectWith: ".con",
     	 cancel:".disabled"
     });
-    $( "tbody" ).enableSelection();
+    //$( "tbody" ).disableSelection();
   } );
   </script>
   <style>
@@ -66,7 +66,7 @@
 	<div class="row">
 		<div class="col-md-12">
 			<h3>До конца периода оценивания осталось <span id="transferTime"></span></h3>
-			<h4>Отсортируйте рассказы, перетаскивая их в списке и закрепляя их.<br>Вы можете написать комментарий, закрепив рассказ.<br> Когда все рассказы будут закреплены, нажмите кнопку "отправить".</h4>
+			<h4>Отсортируйте рассказы, перетаскивая их в списке и закрепляя их.<br><br> Когда все рассказы будут закреплены и комментарии к ним написаны, нажмите кнопку "отправить".</h4>
 		</div>
 			
 		</div>
@@ -238,6 +238,15 @@ $(document).on('click', 'button.udalit', function () {
   	$(".dobavit").html("Закрепить").removeClass("btn-danger").parent().siblings().css({"color": "white"});
   	$(".dobavit").parent().parent().removeClass("disabled");
   	scounter = 0;
+
+
+
+
+
+ });
+
+$(document).on('click', 'textarea', function () {
+  	$(this).focus();
 
 
 
