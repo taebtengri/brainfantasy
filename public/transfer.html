@@ -5,18 +5,40 @@
 		<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"> -->
 	  	<script src="https://code.jquery.com/jquery.js"></script>
 	  	<!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script> -->
+	  	<script
+  src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"
+  integrity="sha256-T0Vest3yCU7pafRw9r+settMBX6JkKN06dqBnpQ8d30="
+  crossorigin="anonymous"></script>
 	  	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
 		<link rel="stylesheet" href="style.css">
 		<link rel="stylesheet" href="/public/style.css">
 
+
 </head>
+<script>
+  $( function() {
+    $( "tbody" ).sortable({
+    	connectWith: ".con",
+    	items: 'tr'
+    });
+    $( "tbody" ).disableSelection();
+  } );
+  </script>
+  <style>
+  #sortable { list-style-type: none; margin: 0; padding: 0; width: 60%; }
+  #sortable li { margin: 0 3px 3px 3px; padding: 0.4em; padding-left: 1.5em; font-size: 1.4em; height: 18px; }
+  #sortable li span { position: absolute; margin-left: -1.3em; }
+  </style>
+  <style>
+#makeMeDraggable { width: 300px; height: 300px; background: red; }
+</style>
 <body>
 <div class="container">
 <div class="">
 	<div class="row">
 		<div class="col-md-9">
-			<h1 class="fifty">Литконкурс</h1>
+			<h1 class="fifty">XIV Хрустящий Литконкурс</h1>
 			<h2>Страница оценивания</h2>
 			
 		</div>
@@ -46,23 +68,23 @@
 		</div>
 		</div>
 	<div class="row">
-		<div class="col-lg-5 l">
-			<!--<h2>Transfer pulunuz: <span id="pul"></span> </h2><br>-->
+		<!--<div class="col-lg-5 l">
+			<h2>Transfer pulunuz: <span id="pul"></span> </h2><br>
 			<h2>Ваш рейтинг рассказов:</h2>
 			<div id="koman">
-			<!-- <div class="komanda">
+			<div class="komanda">
 
 			
 				
 				
 			
-			</div> -->
+			</div>
 			</div>
 			<button class="btn-primary qeyd">Отправить</button>
 			<button class="btn-danger udalit">Очистить</button>	
 
-		</div>
-		<div class="col-lg-6 r">
+		</div>-->
+		<div class="col-lg-11 r">
 			<h2>Рассказы:</h2>
 			<div id="oyuncular">
 			<table class="table table-inverse" id="table">
@@ -74,8 +96,8 @@
 	                  <th></th>
 	          </tr>
 	          </thead>
-	          <tbody>
-          	  <tr class="results"></tr></tbody>
+	          <tbody id="sortable" class="con">
+          	  </tbody>
              
               
             
@@ -96,10 +118,11 @@
 	 $(".results").html(" ");
 		 console.log(data);
         for (var i = 0; i < data.length; i++) {
-        var wellSection = $("<tr class='results'>");
-        wellSection.addClass("well");
+        var wellSection = $("<tr class='results well'>");
+        //wellSection.addClass("well");
+        wellSection.addClass("ui-sortable");
         wellSection.attr("id", "c" + i);
-        $("table").append(wellSection);
+        $("tbody").append(wellSection);
 
         $("#c" + i).append("<th class='imya'>" + data[i].id + "</th>");
         $("#c" + i).append("<th>" + data[i].name + "</th>");
@@ -115,28 +138,14 @@
         console.log("xexexexe");
 
       }
+      $("#sortable").sortable('refresh');
+      $( function() {
+    $( "#sortable" ).sortable();
+    $( "#sortable" ).disableSelection();
+  } );
       //setTimeout(saved, 1000);
 	}
 
-	function saved(){
-	  $.ajax({
-	  url: "/saved",
-	  type: 'GET'}).done(function(data) {
-	  setTimeout(saved1(data), 2000);
-		});
-	};
-
-	function saved1(x){
-	for (i=0; i<6; i++) {
-		$("#" + x.team[i]).trigger("click");
-		console.log(i)
-		};
-
-		$("#i" + x.team[6]).children(".kapitan").trigger("click");
-		console.log("k")
-		console.log(counter + " counter")
-
-	};
 
 	function populate() {
 	$.ajax({
@@ -240,11 +249,6 @@ $(document).on('click', 'button.dobavit', function () {
 
  })
 
-
-
-
-
- $("#pul").text(pul);
 
  var teamsend = [];
 
