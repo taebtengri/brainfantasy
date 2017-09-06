@@ -23,7 +23,7 @@
   $( function() {
     $( "tbody" ).sortable({
     	connectWith: ".con",
-    	items: 'tr'
+    	 cancel:".disabled"
     });
     $( "tbody" ).disableSelection();
   } );
@@ -123,13 +123,13 @@
         for (var i = 0; i < data.length; i++) {
         var wellSection = $("<tr class='results well'>");
         //wellSection.addClass("well");
-        wellSection.addClass("ui-sortable");
+        //wellSection.addClass("ui-sortable");
         wellSection.attr("id", "c" + i);
         $("tbody").append(wellSection);
 
         $("#c" + i).append("<th class='imya'>" + data[i].id + "</th>");
         $("#c" + i).append("<th>" + data[i].name + "</th>");
-        $("#c" + i).append("<th><button type='button' class='btn btn-success dobavit' id='"+i+"'>+</button></th></tr>");
+        $("#c" + i).append("<th><button type='button' class='btn btn-success dobavit' id='"+i+"'>Закрепить</button></th></tr>");
         
 
 
@@ -141,11 +141,11 @@
         console.log("xexexexe");
 
       }
-      $("#sortable").sortable('refresh');
-      $( function() {
-    $( "#sortable" ).sortable();
-    $( "#sortable" ).disableSelection();
-  } );
+  //     $("#sortable").sortable('refresh');
+  //     $( function() {
+  //   $( "#sortable" ).sortable();
+  //   $( "#sortable" ).disableSelection();
+  // } );
       //setTimeout(saved, 1000);
 	}
 
@@ -219,8 +219,10 @@ $(document).on('click', 'button.dobavit', function () {
      $("#i" + svyaz).append("<button type='button' class='btn btn-danger sil "+ svyaz +"'>-</button><br><br>")
 
      
-     $(this).prop("disabled", true)
+     //$(this).prop("disabled", true)
+     $(this).addClass("btn-danger");
      $(this).parent().siblings().css({"color": "red"});
+     $(this).parent().parent().addClass("disabled");
      counter++
      scounter++
      console.log(team);
